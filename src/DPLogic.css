@@ -1,0 +1,151 @@
+.dp-state-container {
+    background: #021528;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dp-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.dp-section {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.dp-section h4 {
+    color: #1e3c72;
+    margin-bottom: 12px;
+    font-size: 1.1em;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 8px;
+}
+
+.dp-section p {
+    color: #495057;
+    margin: 8px 0;
+    font-size: 0.95em;
+}
+
+.dp-recommendation {
+    background: #e9ecef;
+    padding: 12px;
+    border-radius: 6px;
+    margin: 10px 0;
+}
+
+.dp-recommendation div {
+    margin: 8px 0;
+    color: #333;
+}
+
+.dp-recommendation strong {
+    color: #1e3c72;
+    margin-right: 8px;
+}
+
+.dp-explanation {
+    margin-top: 12px;
+    padding: 10px;
+    background: #e9ecef;
+    border-left: 4px solid #2a5298;
+    border-radius: 4px;
+}
+
+.dp-explanation p {
+    margin: 0;
+    color: #333;
+    line-height: 1.5;
+}
+
+/* Strategy section */
+.strategy-text {
+    color: #1e3c72;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+/* Information gain visualization */
+.information-gain {
+    height: 4px;
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+    border-radius: 2px;
+    margin-top: 8px;
+}
+
+/* Complexity indicator */
+.complexity-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    font-family: monospace;
+    margin-left: 8px;
+    font-size: 0.9em;
+    color: #333;
+}
+
+/* DP Table Status styling */
+.dp-table-status {
+    background: #e9ecef;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+.dp-table-status p {
+    color: #333;
+    margin: 5px 0;
+}
+
+/* Weighing history */
+.weighing-history {
+    background: #e9ecef;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 10px;
+    color: #333;
+}
+
+.weighing-result {
+    padding: 8px;
+    margin: 5px 0;
+    background: white;
+    border-radius: 4px;
+    color: #333;
+}
+
+/* Animation for state changes */
+.dp-section {
+    transition: all 0.3s ease;
+}
+
+.dp-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .dp-info {
+        grid-template-columns: 1fr;
+    }
+    
+    .dp-state-container {
+        padding: 15px;
+        margin: 15px 0;
+    }
+}
+
+/* Force all text in .dp-section to be dark and readable */
+.dp-section, .dp-section * {
+    color: #222 !important;
+    font-weight: 500;
+} 

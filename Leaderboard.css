@@ -1,0 +1,32 @@
+.leaderboard-container {
+    text-align: center;
+    padding: 40px;
+  }
+  
+  table {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 80%;
+    max-width: 600px;
+    background-color: #131111;
+    border: 2px solid #ddd;
+  }
+  
+  th, td {
+    padding: 12px;
+    border: 1px solid #ccc;
+  }
+  
+  th {
+    background-color: #080808;
+  }
+  
+  .btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #008cba;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+  }

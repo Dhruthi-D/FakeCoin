@@ -1,0 +1,146 @@
+.home-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: #1e2130;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Glowing dots animation */
+.home-container::before,
+.home-container::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(100, 210, 255, 0.2);
+    animation: float 15s infinite;
+}
+
+.home-container::before {
+    top: 15%;
+    left: 20%;
+}
+
+.home-container::after {
+    bottom: 25%;
+    right: 15%;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(-20px, 20px); }
+    50% { transform: translate(20px, -20px); }
+    75% { transform: translate(-10px, -10px); }
+}
+
+.welcome-title {
+    font-size: 3em;
+    color: #64D2FF;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 1.5em;
+    color: white;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.coin-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.coin-input:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 0 2px rgba(100, 210, 255, 0.3);
+}
+
+.coin-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.home-button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #64D2FF;
+    color: #1e2130;
+    font-weight: 500;
+}
+
+.home-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(100, 210, 255, 0.2);
+}
+
+.home-button.secondary {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.home-button.secondary:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .welcome-title {
+        font-size: 2.5em;
+    }
+
+    .subtitle {
+        font-size: 1.2em;
+    }
+
+    .button-group {
+        flex-direction: column;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .home-button {
+        width: 100%;
+    }
+}
+
+/* Additional glowing dots */
+.glow-dot {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(100, 210, 255, 0.2);
+    animation: float 20s infinite;
+}
+
+.glow-dot:nth-child(1) { top: 10%; left: 10%; animation-delay: -2s; }
+.glow-dot:nth-child(2) { top: 20%; right: 20%; animation-delay: -4s; }
+.glow-dot:nth-child(3) { bottom: 15%; left: 30%; animation-delay: -6s; }
+.glow-dot:nth-child(4) { bottom: 25%; right: 25%; animation-delay: -8s; } 
