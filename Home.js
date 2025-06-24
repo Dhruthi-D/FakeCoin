@@ -1,91 +1,71 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Home.css';
 
 function Home() {
-  const navigate = useNavigate();
-  const [customCoins, setCustomCoins] = useState("");
-  const [username, setUsername] = useState("");
+    const [numCoins, setNumCoins] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    const currentUser = localStorage.getItem("currentUser");
-    if (!currentUser) {
-      navigate("/login");
-    } else {
-      setUsername(currentUser);
-    }
-  }, [navigate]);
+    const handleStartGame = () => {
+        const coins = parseInt(numCoins);
+        if (coins >= 3 && coins <= 32) {
+            // Navigate to game route with numCoins as URL parameter
+            navigate(`/game/${coins}`);
+        }
+    };
 
-  const startGame = (numCoins) => {
-    navigate(`/game/${numCoins}`);
-  };
+    const handleViewLeaderboard = () => {
+        navigate('/leaderboard');
+    };
 
-  const handleCustomInput = (e) => {
-    const value = e.target.value;
-    // Only allow digits
-    if (/^\d*$/.test(value)) {
-      setCustomCoins(value);
-    }
-  };
+    const handleInputChange = (e) => {
+        const value = e.target.value;
+        // Only allow empty string or positive integers (no decimals)
+        if (value === '' || /^\d+$/.test(value)) {
+            setNumCoins(value);
+            setError('');
+        } else if (/\./.test(value)) {
+            setError('Please enter a whole number (no decimals)');
+        }
+    };
 
-  const handleCustomStart = () => {
-    const num = parseInt(customCoins);
-    if (!isNaN(num) && num >= 3 && num <= 32) {
-      startGame(num);
-    } else {
-      alert("Please enter a number between 3 and 32.");
-    }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("currentUser");
-    navigate("/");
-  };
-
-  return (
-    <div className="home-container">
-      <h1>🪙 The Fake Coin Challenge</h1>
-      {username && (
-        <div className="user-info">
-          <p>Welcome, <strong>{username}</strong>!</p>
-          
+    return (
+        <div className="home-bg-animated">
+            <div className="home-container">
+                <div className="home-card">
+                    <h1 className="home-title">🪙 <span>Fake Coin Detection</span></h1>
+                    <h2 className="home-subtitle">Ready to find the fake coin?</h2>
+                    <input
+                        type="number"
+                        className="coin-input"
+                        placeholder="Enter number of coins (3-32)"
+                        value={numCoins}
+                        onChange={handleInputChange}
+                        min="3"
+                        max="32"
+                        step="1"
+                    />
+                    {error && <div className="home-error">{error}</div>}
+                    <div className="button-group">
+                        <button 
+                            className="home-button"
+                            onClick={handleStartGame}
+                            disabled={!numCoins || parseInt(numCoins) < 3 || parseInt(numCoins) > 32}
+                        >
+                            <span role="img" aria-label="play">🎮</span> Start Game
+                        </button>
+                        <button 
+                            className="home-button secondary"
+                            onClick={handleViewLeaderboard}
+                        >
+                            <span role="img" aria-label="leaderboard">🏆</span> View Leaderboard
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-      )}
-
-      <p>Select the number of coins to play with:</p>
-
-      <div className="card-container">
-        {[3, 8, 12, 24].map((num) => (
-          <div key={num} className="coin-card" onClick={() => startGame(num)}>
-            <h2>{num}</h2>
-            <p>coins</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="custom-input">
-        <input
-          type="text"
-          inputMode="numeric"
-          pattern="[0-9]*"
-          placeholder="Enter custom coin count (3-32)"
-          value={customCoins}
-          onChange={handleCustomInput}
-          style={{ width: '200px', padding: '10px', fontSize: '16px' }}
-        />
-        <button onClick={handleCustomStart}>Start</button>
-      </div>
-
-      <Link to="/leaderboard" className="learn-more-button">Leaderboard</Link>
-      <br></br>
-      <Link to="/learn" className="learn-more-button">Learn More</Link>
-      <br></br>
-      <button className="logout-button" onClick={handleLogout}>🚪 Logout</button>
-      <footer>
-        <p>Test your logic and beat the scale! ⚖️</p>
-      </footer>
-    </div>
-  );
+    );
 }
 
-export default Home;
+export default Home; 
