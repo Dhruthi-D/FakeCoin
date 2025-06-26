@@ -103,13 +103,18 @@ function Game({ user }) {
 
     const optimalSplit = findOptimalSplit(possibleFakeCoins);
     const leftCount = optimalSplit.split.length;
-    const rightCount = possibleFakeCoins.length - leftCount;
+    const rightCount = optimalSplit.right ? optimalSplit.right.length : (possibleFakeCoins.length - leftCount);
+    const aside = optimalSplit.leftovers || possibleFakeCoins.filter(c => !optimalSplit.split.includes(c) && !(optimalSplit.right || []).includes(c));
     if (leftCount === 0 || rightCount === 0) {
       setHintText('No hints available - you are very close!');
       setShowHint(true);
       return;
     }
-    setHintText(`Hint: Try splitting the remaining coins into groups of ${leftCount} and ${rightCount}`);
+    let hint = `Hint: Split the remaining coins into two groups of ${leftCount} on each pan.`;
+    if (aside.length > 0) {
+      hint += ` Leave aside: ${aside.map(c => c + 1).join(', ')}.`;
+    }
+    setHintText(hint);
     setHintsUsed(prev => prev + 1);
     setShowHint(true);
   };

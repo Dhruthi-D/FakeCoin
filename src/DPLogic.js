@@ -41,6 +41,8 @@ const findOptimalSplit = (possibleFakeCoins) => {
 
     const bestSplit = {
         split: leftGroup,
+        right: rightGroup,
+        leftovers: possibleFakeCoins.slice(2 * groupSize),
         steps: worstCaseSteps,
         gain: currentGain
     };
@@ -92,7 +94,8 @@ const DPStateDisplay = ({ coins, possibleFakeCoins, lastWeighing }) => {
     const explanation = generateExplanation(possibleFakeCoins, optimalSplit);
 
     const leftPan = optimalSplit.split;
-    const rightPan = possibleFakeCoins.filter(c => !leftPan.includes(c));
+    const rightPan = optimalSplit.right || possibleFakeCoins.filter(c => !leftPan.includes(c)).slice(0, leftPan.length);
+    const leftovers = optimalSplit.leftovers || possibleFakeCoins.filter(c => !leftPan.includes(c) && !rightPan.includes(c));
 
     return (
         <div className="dp-state-container">
@@ -123,21 +126,18 @@ const DPStateDisplay = ({ coins, possibleFakeCoins, lastWeighing }) => {
 
                 <div className="dp-section">
                     <h4>DP-Guided Next Move</h4>
-                    <p className="strategy-text">{explanation.strategy}</p>
-                    {optimalSplit.steps === Infinity ? (
-                        <p>Cannot weigh evenly. Try removing or guessing a coin.</p>
-                    ) : (
-                        <div className="dp-recommendation">
-                            <div>
-                                <strong>Left pan:</strong> {leftPan.map(c => c + 1).join(', ')}
-                            </div>
-                            <div>
-                                <strong>Right pan:</strong> {rightPan.map(c => c + 1).join(', ')}
-                            </div>
+                    <div className="dp-recommendation">
+                        <div>
+                            <strong>Left pan:</strong> {leftPan.map(c => c + 1).join(', ')}
                         </div>
-                    )}
-                    <div className="dp-explanation">
-                        <p>{explanation.text}</p>
+                        <div>
+                            <strong>Right pan:</strong> {rightPan.map(c => c + 1).join(', ')}
+                        </div>
+                        {leftovers.length > 0 && (
+                            <div className="aside-row">
+                                <strong>Aside:</strong> {leftovers.map(c => c + 1).join(', ')}
+                            </div>
+                        )}
                     </div>
                 </div>
 
@@ -157,6 +157,9 @@ const DPStateDisplay = ({ coins, possibleFakeCoins, lastWeighing }) => {
                         )}
                     </div>
                 </div>
+            </div>
+            <div className="dp-explanation">
+                <p>{explanation.text}</p>
             </div>
         </div>
     );
